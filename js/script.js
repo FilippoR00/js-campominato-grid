@@ -2,6 +2,9 @@ let difficulty = document.getElementById("difficulty");
 let content = "";
 let box = document.querySelector(".box");
 let bombs = [];
+let win = document.querySelector(".win");
+let lose = document.querySelector(".lose");
+let counter = 0;
 
 function getSquares(value) {
     if (value == "easy") {
@@ -50,10 +53,16 @@ function click(square){
     for (let i = 0; i < square.length; i++) {
         square[i].addEventListener("click", function () {
             square[i].classList.add("safe");
+            counter++;
+            console.log(counter);
             for (let j = 0; j < bombs.length; j++) {
-                if(i == bombs[j]){
+                if(i + 1 == bombs[j]){
                     square[i].classList.remove("safe");
                     square[i].classList.add("bomb");
+                    lose.classList.add("active");
+                }
+                if(i + 1 != bombs[j] && counter >= square.length - 10) {
+                    win.classList.add("active");
                 }
             }
         })
